@@ -28,7 +28,7 @@ class Welcome extends StatelessWidget {
                 "Manage\ntime more effectively",
                 style: TextStyle(
                   fontFamily: TTFonts.secondary,
-                  fontSize: 47,
+                  fontSize: 45,
                 )
             ),
             Align(
@@ -46,7 +46,7 @@ class Welcome extends StatelessWidget {
                     const Text("Next", style: TextStyle(fontSize: 20)),
                     Row(
                       children: [
-                        const SizedBox(width: 13, child: Icon(Icons.chevron_right, size: 30,)),
+                        const SizedBox(width: 13, child: Icon(Icons.chevron_right, size: 30)),
                         SizedBox(width: 13, child: Icon(Icons.chevron_right, color: Colors.grey[400], size: 30)),
                         SizedBox(width: 25, child: Icon(Icons.chevron_right, color: Colors.grey[500], size: 30)),
                       ],

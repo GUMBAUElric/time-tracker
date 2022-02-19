@@ -10,7 +10,7 @@ class TTButton extends StatelessWidget {
   TTButton({
     Key? key,
     required this.child,
-    this.padding = 20,
+    this.padding = 18,
     this.borderRadius = 20,
     required this.onPressed
   }) : super(key: key);

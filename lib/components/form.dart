@@ -34,7 +34,7 @@ class _TTFormState extends State<TTForm> {
                   "Hello 👋",
                   style: TextStyle(
                     fontFamily: TTFonts.secondary,
-                    fontSize: 47,
+                    fontSize: 45,
                   )
               ),
               const SizedBox(height: 60),
