@@ -71,7 +71,7 @@ class _TTFormState extends State<TTForm> {
                     if (_formKey.currentState!.validate()) {
                       user = UserModel(pseudo: _pseudoController.text);
                       store.dispatch(LogUser(user: user));
-                      Navigator.pushNamed(context, "/home");
+                      Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName('/login'));
                     }
                   },
                   child: const Text("Login", style: TextStyle(
