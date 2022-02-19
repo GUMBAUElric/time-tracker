@@ -24,13 +24,7 @@ class Login extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          width: double.infinity,
-          child: const TTForm()
-        ),
-      ),
+      body: const TTForm()
     );
   }
 }

@@ -38,7 +38,7 @@ class _TTFormState extends State<TTForm> {
               ),
               Container(
                 width: 400,
-                margin: const EdgeInsets.symmetric(vertical: 50),
+                margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
                 child: TextFormField(
                   controller: _pseudoController,
                   autocorrect: false,
