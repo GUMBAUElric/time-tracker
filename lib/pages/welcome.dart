@@ -20,30 +20,32 @@ class Welcome extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
-        child: Stack(
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-                "Manage\ntime more effectively",
+            Container(
+              margin: const EdgeInsets.only(left: 28),
+              child: const Text(
+                "Manage\ntime more\neffectively",
                 style: TextStyle(
                   fontFamily: TTFonts.secondary,
                   fontSize: 45,
                 )
+              ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Image.asset("images/welcome-logo.png", width: 350),
-            ),
-            Positioned(
-              bottom: 80,
-              width: 190,
+            Image.asset("images/welcome-logo.png"),
+            Container(
+              margin: const EdgeInsets.only(left: 28, bottom: 50),
               child: TTButton(
+                width: 180,
+                height: 65,
                 onPressed: () => Navigator.pushNamed(context, "/form"),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Next", style: TextStyle(fontSize: 20)),
+                    const Text("Next", style: TextStyle(fontSize: 19)),
                     Row(
                       children: [
                         const SizedBox(width: 13, child: Icon(Icons.chevron_right, size: 30)),
@@ -54,7 +56,7 @@ class Welcome extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
