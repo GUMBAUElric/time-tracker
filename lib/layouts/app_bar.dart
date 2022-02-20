@@ -4,11 +4,13 @@ import 'package:time_tracker/base/base.dart';
 class TTAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final Widget? title;
+  final bool showLeading;
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(50);
 
-  const TTAppBar({Key? key, this.leading, this.title}) : super(key: key);
+  const TTAppBar({Key? key, this.leading, this.title, this.showLeading = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class TTAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       automaticallyImplyLeading: false,
-      leading: leading ?? defaultLeadingButton,
+      leading: showLeading ? (leading ?? defaultLeadingButton) : null,
       title: title,
     );
   }
