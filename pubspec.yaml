@@ -95,5 +95,5 @@ flutter:
       fonts:
         - asset: fonts/Poppins-Regular.ttf
     - family: RubikOne
-      fonts :
+      fonts:
         - asset: fonts/RubikOne-Regular.ttf
