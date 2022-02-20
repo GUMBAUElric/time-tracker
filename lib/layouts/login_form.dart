@@ -4,6 +4,7 @@ import 'package:redux/redux.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/container.dart';
+import 'package:time_tracker/components/input.dart';
 import 'package:time_tracker/models/user.model.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
@@ -37,25 +38,11 @@ class _TTLoginFormState extends State<TTLoginForm> {
                     fontFamily: TTFonts.secondary,
                     fontSize: 45,
                   )),
-              TextFormField(
+              TTInput(
                 controller: _pseudoController,
-                autocorrect: false,
                 validator: (val) => val!.isEmpty ? "Wrong pseudo !" : null,
-                cursorColor: TTColors.primary,
-                style: const TextStyle(color: TTColors.primary, fontSize: 16),
-                decoration: InputDecoration(
-                  labelText: "Pseudo",
-                  labelStyle: const TextStyle(color: TTColors.primary),
-                  hintText: "Cho7du67",
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(TTBorderRadius.small),
-                      borderSide: const BorderSide(color: TTColors.primary)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(TTBorderRadius.small),
-                      borderSide: const BorderSide(color: TTColors.primary)),
-                ),
+                labelText: "Pseudo",
+                hintText: "Cho7du67",
               ),
               TTButton(
                 onPressed: () {
