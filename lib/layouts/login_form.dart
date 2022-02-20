@@ -48,10 +48,10 @@ class _TTLoginFormState extends State<TTLoginForm> {
                   labelStyle: const TextStyle(color: TTColors.primary),
                   hintText: "Cho7du67",
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(TTBorderRadius.small),
                       borderSide: const BorderSide(color: TTColors.primary)),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(TTBorderRadius.small),
                       borderSide: const BorderSide(color: TTColors.primary)),
                 ),
               ),
@@ -62,9 +62,9 @@ class _TTLoginFormState extends State<TTLoginForm> {
                 if (!_formKey.currentState!.validate()) return;
 
                 user = UserModel(pseudo: _pseudoController.text);
-                store.dispatch(LogUser(user: user));
+                store.dispatch(LogInUser(user: user));
                 Navigator.pushNamedAndRemoveUntil(
-                    context, "/home", ModalRoute.withName('/login'));
+                    context, "/home", (route) => false);
               },
               child: const Text("Login", style: TextStyle(fontSize: 16)),
             ),
