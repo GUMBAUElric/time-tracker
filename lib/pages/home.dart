@@ -4,7 +4,7 @@ import 'package:time_tracker/components/layout_slider.dart';
 import 'package:time_tracker/layouts/nav_bar.dart';
 
 class Home extends StatelessWidget {
-  final List<Map> _navigationLayouts = [
+  final List<Map<String, dynamic>> _navigationLayouts = [
     {"icon": Icons.home_rounded, "layout": const Text("Home")},
     {"icon": Icons.add_rounded, "layout": const Text("Add Tasks")}
   ];
