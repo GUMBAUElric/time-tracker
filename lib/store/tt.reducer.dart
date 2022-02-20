@@ -4,11 +4,11 @@ import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 
 final timeTrackerReducer = combineReducers<TimeTrackerState>([
-  TypedReducer<TimeTrackerState, LogUser>(_LogUser),
+  TypedReducer<TimeTrackerState, LogInUser>(_LogInUser),
   TypedReducer<TimeTrackerState, LogOutUser>(_LogOutUser)
 ]);
 
-TimeTrackerState _LogUser(TimeTrackerState state, LogUser action) {
+TimeTrackerState _LogInUser(TimeTrackerState state, LogInUser action) {
   String? error;
 
   if (action.user.pseudo == "") {

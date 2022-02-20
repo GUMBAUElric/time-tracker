@@ -1,9 +1,9 @@
 import 'package:time_tracker/models/user.model.dart';
 
-class LogUser {
+class LogInUser {
   UserModel user;
 
-  LogUser({required this.user});
+  LogInUser({required this.user});
 }
 
 class LogOutUser {
