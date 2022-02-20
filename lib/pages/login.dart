@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/components/app_bar_line.dart';
 import 'package:time_tracker/layouts/app_bar.dart';
-import 'package:time_tracker/layouts/form.dart';
+import 'package:time_tracker/layouts/login_form.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,6 +18,6 @@ class Login extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.white,
-        body: const TTForm());
+        body: const TTLoginForm());
   }
 }
