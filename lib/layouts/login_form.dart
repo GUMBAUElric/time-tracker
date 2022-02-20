@@ -58,7 +58,6 @@ class _TTLoginFormState extends State<TTLoginForm> {
                 ),
               ),
               TTButton(
-                padding: 10,
                 onPressed: () {
                   if (!_formKey.currentState!.validate()) return;
 

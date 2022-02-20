@@ -39,6 +39,7 @@ class Welcome extends StatelessWidget {
               child: TTButton(
                 width: 180,
                 height: 65,
+                padding: 18,
                 onPressed: () => Navigator.pushNamed(context, "/form"),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

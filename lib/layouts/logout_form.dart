@@ -30,8 +30,6 @@ class TTLogoutForm extends StatelessWidget {
                     fontSize: 23, fontFamily: TTFonts.secondary),
               ),
               TTButton(
-                  padding: 10,
-                  width: 130,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
