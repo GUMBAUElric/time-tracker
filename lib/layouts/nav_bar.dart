@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
+import 'package:time_tracker/components/nav_bar_icon.dart';
 
 class TTNavBar extends StatefulWidget {
   final List<Map> navigationLayouts;
@@ -37,35 +38,23 @@ class _TTNavBarState extends State<TTNavBar> {
           ...widget.navigationLayouts.map((item) {
             int index = widget.navigationLayouts.indexOf(item);
 
-            return AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
-              opacity: indexIsEqualToCurrentIndex(index) ? 1.0 : 0.5,
-              child: IconButton(
-                icon: Icon(item['icon']),
-                iconSize: 30,
-                color: Colors.white,
+            return TTNavBarIcon(
+                icon: item['icon'],
+                opacity: indexIsEqualToCurrentIndex(index) ? 1.0 : 0.5,
                 onPressed: () => setState(() {
-                  currentIndex = index;
-                  widget.callback(currentIndex);
-                }),
-              ),
-            );
+                      currentIndex = index;
+                      widget.callback(currentIndex);
+                    }));
           }).toList(),
-          AnimatedOpacity(
-            opacity: indexIsEqualToCurrentIndex(_getNavigationLayoutsLength)
-                ? 1.0
-                : 0.5,
-            duration: const Duration(milliseconds: 200),
-            child: IconButton(
-              icon: const Icon(Icons.person_rounded),
-              iconSize: 30,
-              color: Colors.white,
+          TTNavBarIcon(
+              icon: Icons.person_rounded,
+              opacity: indexIsEqualToCurrentIndex(_getNavigationLayoutsLength)
+                  ? 1.0
+                  : 0.5,
               onPressed: () => setState(() {
-                currentIndex = _getNavigationLayoutsLength;
-                // TODO : Push navigation to user settings
-              }),
-            ),
-          )
+                    currentIndex = _getNavigationLayoutsLength;
+                    Navigator.pushNamed(context, '/user-settings');
+                  })),
         ],
       ),
     );
