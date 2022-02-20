@@ -15,3 +15,9 @@ class TTBorderRadius {
   static const double normal = 25;
   static const double small = 25;
 }
+
+class TTDefaultSize {
+  static const double width = 400;
+  static const double height = 350;
+  static const double margin = 30;
+}

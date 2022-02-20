@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/button.dart';
+import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/models/user.model.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
@@ -24,20 +25,19 @@ class _TTLoginFormState extends State<TTLoginForm> {
   Widget build(BuildContext context) {
     return StoreBuilder<TimeTrackerState>(
         builder: (BuildContext context, Store<TimeTrackerState> store) {
-      return Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Hello 👋",
-                style: TextStyle(
-                  fontFamily: TTFonts.secondary,
-                  fontSize: 45,
-                )),
-            Container(
-              width: 400,
-              margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-              child: TextFormField(
+      return TTContainer(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text("Hello 👋",
+                  style: TextStyle(
+                    fontFamily: TTFonts.secondary,
+                    fontSize: 45,
+                  )),
+              TextFormField(
                 controller: _pseudoController,
                 autocorrect: false,
                 validator: (val) => val!.isEmpty ? "Wrong pseudo !" : null,
@@ -47,6 +47,8 @@ class _TTLoginFormState extends State<TTLoginForm> {
                   labelText: "Pseudo",
                   labelStyle: const TextStyle(color: TTColors.primary),
                   hintText: "Cho7du67",
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(TTBorderRadius.small),
                       borderSide: const BorderSide(color: TTColors.primary)),
@@ -55,20 +57,20 @@ class _TTLoginFormState extends State<TTLoginForm> {
                       borderSide: const BorderSide(color: TTColors.primary)),
                 ),
               ),
-            ),
-            TTButton(
-              padding: 10,
-              onPressed: () {
-                if (!_formKey.currentState!.validate()) return;
+              TTButton(
+                padding: 10,
+                onPressed: () {
+                  if (!_formKey.currentState!.validate()) return;
 
-                user = UserModel(pseudo: _pseudoController.text);
-                store.dispatch(LogInUser(user: user));
-                Navigator.pushNamedAndRemoveUntil(
-                    context, "/home", (route) => false);
-              },
-              child: const Text("Login", style: TextStyle(fontSize: 16)),
-            ),
-          ],
+                  user = UserModel(pseudo: _pseudoController.text);
+                  store.dispatch(LogInUser(user: user));
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "/home", (route) => false);
+                },
+                child: const Text("Login", style: TextStyle(fontSize: 16)),
+              ),
+            ],
+          ),
         ),
       );
     });
