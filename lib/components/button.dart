@@ -16,7 +16,7 @@ class TTButton extends StatelessWidget {
       this.width = 140,
       this.height = 50,
       this.padding = 18,
-      this.borderRadius = 22,
+      this.borderRadius = TTBorderRadius.normal,
       this.backgroundColor = TTColors.primary,
       required this.onPressed})
       : super(key: key);
