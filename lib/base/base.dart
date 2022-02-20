@@ -13,4 +13,5 @@ class TTFonts {
 
 class TTBorderRadius {
   static const double normal = 25;
+  static const double small = 25;
 }

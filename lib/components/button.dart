@@ -10,16 +10,16 @@ class TTButton extends StatelessWidget {
   Widget child;
   void Function() onPressed;
 
-  TTButton({
-    Key? key,
-    required this.child,
-    this.width = 140,
-    this.height = 50,
-    this.padding = 18,
-    this.borderRadius = 22,
-    this.backgroundColor = TTColors.primary,
-    required this.onPressed
-  }) : super(key: key);
+  TTButton(
+      {Key? key,
+      required this.child,
+      this.width = 140,
+      this.height = 50,
+      this.padding = 18,
+      this.borderRadius = TTBorderRadius.normal,
+      this.backgroundColor = TTColors.primary,
+      required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,14 @@ class TTButton extends StatelessWidget {
         onPressed: onPressed,
         child: child,
         style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(padding)),
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-              side: BorderSide(color: backgroundColor)
-            )
-          )
-        ),
+            padding:
+                MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(padding)),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    side: BorderSide(color: backgroundColor)))),
       ),
     );
   }
