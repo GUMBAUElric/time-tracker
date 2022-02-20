@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
-import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/app_bar_line.dart';
+import 'package:time_tracker/components/button.dart';
+import 'package:time_tracker/layouts/app_bar.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -9,9 +10,9 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
+      backgroundColor: Colors.white,
+      appBar: TTAppBar(
+        showLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -19,7 +20,6 @@ class Welcome extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,13 +27,11 @@ class Welcome extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.only(left: 28),
-              child: const Text(
-                "Manage\ntime more\neffectively",
-                style: TextStyle(
-                  fontFamily: TTFonts.secondary,
-                  fontSize: 45,
-                )
-              ),
+              child: const Text("Manage\ntime more\neffectively",
+                  style: TextStyle(
+                    fontFamily: TTFonts.secondary,
+                    fontSize: 45,
+                  )),
             ),
             Image.asset("images/welcome-logo.png"),
             Container(
@@ -48,9 +46,17 @@ class Welcome extends StatelessWidget {
                     const Text("Next", style: TextStyle(fontSize: 19)),
                     Row(
                       children: [
-                        const SizedBox(width: 13, child: Icon(Icons.chevron_right, size: 30)),
-                        SizedBox(width: 13, child: Icon(Icons.chevron_right, color: Colors.grey[400], size: 30)),
-                        SizedBox(width: 25, child: Icon(Icons.chevron_right, color: Colors.grey[500], size: 30)),
+                        const SizedBox(
+                            width: 13,
+                            child: Icon(Icons.chevron_right, size: 30)),
+                        SizedBox(
+                            width: 13,
+                            child: Icon(Icons.chevron_right,
+                                color: Colors.grey[400], size: 30)),
+                        SizedBox(
+                            width: 25,
+                            child: Icon(Icons.chevron_right,
+                                color: Colors.grey[500], size: 30)),
                       ],
                     ),
                   ],
