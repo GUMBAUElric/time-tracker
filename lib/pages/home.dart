@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/layout_slider.dart';
+import 'package:time_tracker/layouts/app_bar.dart';
 import 'package:time_tracker/layouts/nav_bar.dart';
 
 class Home extends StatelessWidget {
@@ -17,13 +18,9 @@ class Home extends StatelessWidget {
         LayoutSlider(navigationLayouts: _navigationLayouts);
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text('Time Tracker',
-            style: TextStyle(color: TTColors.primary)),
-        leading: const Icon(Icons.notifications_rounded,
+      appBar: const TTAppBar(
+        title: Text('Time Tracker', style: TextStyle(color: TTColors.primary)),
+        leading: Icon(Icons.notifications_rounded,
             color: TTColors.primary, size: 25),
       ),
       body: Container(
