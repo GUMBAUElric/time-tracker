@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:time_tracker/base/base.dart';
+
+class TTDatePicker {
+  final BuildContext context;
+
+  TTDatePicker({required this.context});
+
+  Future<DateTime?> show() async {
+    return await showDatePicker(
+        context: context,
+        locale: const Locale("fr", "FR"),
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2300),
+        builder: (_, Widget? child) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                  colorScheme: const ColorScheme.light(
+                primary: TTColors.primary,
+                onPrimary: Colors.white,
+                surface: TTColors.primary,
+                onSurface: TTColors.primary,
+              )),
+              child: child!);
+        });
+  }
+}
