@@ -1,8 +1,8 @@
-import 'package:intl/intl.dart';
+import 'package:time_tracker/utils/date.dart';
 
 class UserModel {
   String pseudo;
-  String connectedAt = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
+  String connectedAt = getCurrentFullDate();
 
   UserModel({required this.pseudo});
 }
