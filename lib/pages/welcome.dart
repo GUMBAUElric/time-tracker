@@ -40,7 +40,7 @@ class Welcome extends StatelessWidget {
                 width: 180,
                 height: 65,
                 padding: 18,
-                onPressed: () => Navigator.pushNamed(context, "/form"),
+                onPressed: () => Navigator.pushNamed(context, "/login"),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
