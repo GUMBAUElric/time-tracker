@@ -6,13 +6,15 @@ class TTInput extends StatelessWidget {
   final String? Function(String?)? validator;
   final String labelText;
   final String hintText;
+  final void Function()? onTap;
 
   const TTInput(
       {Key? key,
       required this.controller,
       required this.validator,
       this.labelText = "",
-      this.hintText = ""})
+      this.hintText = "",
+      this.onTap})
       : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class TTInput extends StatelessWidget {
       validator: validator,
       cursorColor: TTColors.primary,
       style: const TextStyle(color: TTColors.primary, fontSize: 16),
+      onTap: onTap,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(color: TTColors.primary),
