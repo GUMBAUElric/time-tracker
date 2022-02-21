@@ -59,6 +59,7 @@ class _AddTasksState extends State<AddTasks> {
                     validator: (val) =>
                         val == null ? "Wrong task priority !" : null,
                     hintText: "Priority",
+                    labelText: "Priority",
                     dropDownItems: const ['Low', 'Middle', 'High'],
                     dropDownItemsColors: (val) {
                       if (val == "Low") return TTColors.secondary;
@@ -128,7 +129,14 @@ class _AddTasksState extends State<AddTasks> {
                   width: 100,
                   onPressed: () {
                     if (!_formKey.currentState!.validate()) return;
-                    print('Button pressed');
+
+                    if (!timeRangeIsValid(
+                        _startTimeController.text, _endTimeController.text)) {
+                      print("bad time range");
+                      return;
+                    }
+
+                    print("Ok");
                   },
                   child: const Text("Ok", style: TextStyle(fontSize: 16)),
                 )
