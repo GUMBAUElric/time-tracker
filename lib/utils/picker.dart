@@ -26,3 +26,25 @@ class TTDatePicker {
         });
   }
 }
+
+class TTTimePicker {
+  final BuildContext context;
+
+  TTTimePicker({required this.context});
+
+  Future<TimeOfDay?> show() async {
+    return showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        builder: (_, Widget? child) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                  colorScheme: const ColorScheme.light(
+                primary: TTColors.primary,
+                onPrimary: Colors.white,
+                surface: Colors.white,
+              )),
+              child: child!);
+        });
+  }
+}
