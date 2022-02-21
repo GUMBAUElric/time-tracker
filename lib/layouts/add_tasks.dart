@@ -8,7 +8,8 @@ import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/components/dropdown.dart';
 import 'package:time_tracker/components/input.dart';
 import 'package:time_tracker/store/tt.state.dart';
-import 'package:time_tracker/utils/date_picker.dart';
+import 'package:time_tracker/utils/date.dart';
+import 'package:time_tracker/utils/picker.dart';
 
 class AddTasks extends StatefulWidget {
   const AddTasks({Key? key}) : super(key: key);
@@ -21,14 +22,19 @@ class _AddTasksState extends State<AddTasks> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _taskNameController = TextEditingController();
 
-  // Get current date
-  String selectedDate =
-      DateFormat('dd/MM/yyyy').format(DateTime.now()).toString();
+  String date = getCurrentDate();
+  String startTime = getCurrentTime();
+  String endTime = getCurrentTime();
 
   @override
   Widget build(BuildContext context) {
     TextEditingController _dateController = TextEditingController();
-    _dateController.text = selectedDate;
+    final TextEditingController _startTimeController = TextEditingController();
+    final TextEditingController _endTimeController = TextEditingController();
+
+    _dateController.text = date;
+    _startTimeController.text = startTime;
+    _endTimeController.text = endTime;
 
     return StoreBuilder(
       builder: (BuildContext context, Store<TimeTrackerState> store) {
@@ -63,15 +69,60 @@ class _AddTasksState extends State<AddTasks> {
                   controller: _dateController,
                   validator: (val) => null,
                   labelText: 'Date',
+                  readOnly: true,
+                  textAlign: TextAlign.center,
                   onTap: () async {
                     DateTime? newDate =
                         await TTDatePicker(context: context).show();
 
                     if (newDate == null) return;
 
-                    setState(() => selectedDate =
+                    setState(() => date =
                         DateFormat('dd/MM/yyyy').format(newDate).toString());
                   },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TTContainer(
+                        width: 110,
+                        height: 50,
+                        child: TTInput(
+                          labelText: "Start time",
+                          readOnly: true,
+                          textAlign: TextAlign.center,
+                          controller: _startTimeController,
+                          validator: (val) => null,
+                          onTap: () async {
+                            TimeOfDay? newStartTime =
+                                await TTTimePicker(context: context).show();
+
+                            if (newStartTime == null) return;
+
+                            setState(() => startTime =
+                                newStartTime.format(context).toString());
+                          },
+                        )),
+                    TTContainer(
+                        width: 100,
+                        height: 50,
+                        child: TTInput(
+                          labelText: "End time",
+                          readOnly: true,
+                          textAlign: TextAlign.center,
+                          controller: _endTimeController,
+                          validator: (val) => null,
+                          onTap: () async {
+                            TimeOfDay? newEndTime =
+                                await TTTimePicker(context: context).show();
+
+                            if (newEndTime == null) return;
+
+                            setState(() => endTime =
+                                newEndTime.format(context).toString());
+                          },
+                        ))
+                  ],
                 ),
                 TTButton(
                   width: 100,
