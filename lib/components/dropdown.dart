@@ -3,16 +3,18 @@ import 'package:time_tracker/base/base.dart';
 
 class TTDropdown extends StatefulWidget {
   final String hintText;
+  final String labelText;
   final String? Function(String?)? validator;
   final List<String> dropDownItems;
   final Color? Function(String?)? dropDownItemsColors;
 
-
-  const TTDropdown({Key? key,
-    this.hintText = "",
-    required this.validator,
-    required this.dropDownItems,
-    required this.dropDownItemsColors})
+  const TTDropdown(
+      {Key? key,
+      this.hintText = "",
+      this.labelText = "",
+      required this.validator,
+      required this.dropDownItems,
+      required this.dropDownItemsColors})
       : super(key: key);
 
   @override
@@ -22,13 +24,12 @@ class TTDropdown extends StatefulWidget {
 class _TTDropdownState extends State<TTDropdown> {
   String? dropDownValue;
 
-  DropdownMenuItem<String> buildMenuItem(String item) =>
-      DropdownMenuItem(
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
         child: Text(
           item,
           style:
-          TextStyle(fontSize: 15, color: widget.dropDownItemsColors!(item)),
+              TextStyle(fontSize: 15, color: widget.dropDownItemsColors!(item)),
         ),
       );
 
@@ -37,8 +38,9 @@ class _TTDropdownState extends State<TTDropdown> {
     return DropdownButtonFormField<String>(
         decoration: InputDecoration(
           hintText: widget.hintText,
+          labelText: widget.labelText,
           contentPadding:
-          const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           labelStyle: const TextStyle(color: TTColors.primary),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(TTBorderRadius.small),
