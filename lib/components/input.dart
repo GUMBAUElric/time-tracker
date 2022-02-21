@@ -7,6 +7,8 @@ class TTInput extends StatelessWidget {
   final String labelText;
   final String hintText;
   final void Function()? onTap;
+  final bool readOnly;
+  final TextAlign textAlign;
 
   const TTInput(
       {Key? key,
@@ -14,7 +16,9 @@ class TTInput extends StatelessWidget {
       required this.validator,
       this.labelText = "",
       this.hintText = "",
-      this.onTap})
+      this.onTap,
+      this.readOnly = false,
+      this.textAlign = TextAlign.left})
       : super(key: key);
 
   @override
@@ -26,6 +30,8 @@ class TTInput extends StatelessWidget {
       cursorColor: TTColors.primary,
       style: const TextStyle(color: TTColors.primary, fontSize: 16),
       onTap: onTap,
+      readOnly: readOnly,
+      textAlign: textAlign,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(color: TTColors.primary),
