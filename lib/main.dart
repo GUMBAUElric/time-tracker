@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
     return StoreProvider<TimeTrackerState>(
       store: timeTrackerStore,
       child: MaterialApp(
+          builder: (context, child) => MediaQuery(
+              data:
+                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+              child: child!),
           title: 'Time Tracker',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: TTFonts.primary),
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
           initialRoute: "/",
           routes: {
             '/': (context) => const Welcome(),
-            '/form': (context) => const Login(),
+            '/login': (context) => const Login(),
             '/home': (context) => Home(),
             '/user-settings': (context) => const UserSettings()
           }),
