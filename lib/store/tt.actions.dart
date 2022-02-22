@@ -1,3 +1,4 @@
+import 'package:time_tracker/models/task.model.dart';
 import 'package:time_tracker/models/user.model.dart';
 
 class LogInUser {
@@ -8,4 +9,10 @@ class LogInUser {
 
 class LogOutUser {
   LogOutUser();
+}
+
+class AddTask {
+  TaskModel task;
+
+  AddTask({ required this.task });
 }
