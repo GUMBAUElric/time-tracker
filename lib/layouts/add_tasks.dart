@@ -7,24 +7,26 @@ import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/components/dropdown.dart';
 import 'package:time_tracker/components/input.dart';
+import 'package:time_tracker/models/task.model.dart';
+import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
 import 'package:time_tracker/utils/picker.dart';
 
-class AddTasks extends StatefulWidget {
-  const AddTasks({Key? key}) : super(key: key);
+class TTAddTasks extends StatefulWidget {
+  const TTAddTasks({Key? key}) : super(key: key);
 
   @override
-  State<AddTasks> createState() => _AddTasksState();
+  State<TTAddTasks> createState() => _TTAddTasksState();
 }
 
-class _AddTasksState extends State<AddTasks> {
+class _TTAddTasksState extends State<TTAddTasks> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _taskNameController = TextEditingController();
-
-  String date = getCurrentDate();
-  String startTime = getCurrentTime();
-  String endTime = getCurrentTime();
+  late String _priority;
+  String _date = getCurrentDate();
+  String _startTime = getCurrentTime();
+  String _endTime = getCurrentTime();
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +34,9 @@ class _AddTasksState extends State<AddTasks> {
     final TextEditingController _startTimeController = TextEditingController();
     final TextEditingController _endTimeController = TextEditingController();
 
-    _dateController.text = date;
-    _startTimeController.text = startTime;
-    _endTimeController.text = endTime;
+    _dateController.text = _date;
+    _startTimeController.text = _startTime;
+    _endTimeController.text = _endTime;
 
     return StoreBuilder(
       builder: (BuildContext context, Store<TimeTrackerState> store) {
@@ -56,16 +58,19 @@ class _AddTasksState extends State<AddTasks> {
                   hintText: "My superb task 🚀",
                 ),
                 TTDropdown(
-                    validator: (val) =>
-                        val == null ? "Wrong task priority !" : null,
-                    hintText: "Priority",
-                    labelText: "Priority",
-                    dropDownItems: const ['Low', 'Middle', 'High'],
-                    dropDownItemsColors: (val) {
-                      if (val == "Low") return TTColors.secondary;
-                      if (val == "High") return TTColors.tertiary;
-                      return TTColors.primary;
-                    }),
+                  validator: (val) =>
+                      val == null ? "Wrong task priority !" : null,
+                  hintText: "Priority",
+                  labelText: "Priority",
+                  dropDownItems: const ['Low', 'Middle', 'High'],
+                  dropDownItemsColors: (val) {
+                    if (val == "Low") return TTColors.secondary;
+                    if (val == "High") return TTColors.tertiary;
+                    return TTColors.primary;
+                  },
+                  callBack: (selectedPriority) =>
+                      setState(() => _priority = selectedPriority),
+                ),
                 TTInput(
                   controller: _dateController,
                   validator: (val) => null,
@@ -78,7 +83,7 @@ class _AddTasksState extends State<AddTasks> {
 
                     if (newDate == null) return;
 
-                    setState(() => date =
+                    setState(() => _date =
                         DateFormat('dd/MM/yyyy').format(newDate).toString());
                   },
                 ),
@@ -100,7 +105,7 @@ class _AddTasksState extends State<AddTasks> {
 
                             if (newStartTime == null) return;
 
-                            setState(() => startTime =
+                            setState(() => _startTime =
                                 newStartTime.format(context).toString());
                           },
                         )),
@@ -119,7 +124,7 @@ class _AddTasksState extends State<AddTasks> {
 
                             if (newEndTime == null) return;
 
-                            setState(() => endTime =
+                            setState(() => _endTime =
                                 newEndTime.format(context).toString());
                           },
                         ))
@@ -127,16 +132,28 @@ class _AddTasksState extends State<AddTasks> {
                 ),
                 TTButton(
                   width: 100,
-                  onPressed: () {
+                  onPressed: () async {
                     if (!_formKey.currentState!.validate()) return;
 
-                    if (!timeRangeIsValid(
-                        _startTimeController.text, _endTimeController.text)) {
+                    String name = _taskNameController.text;
+                    String priority = _priority;
+                    String date = _date;
+                    String startTime = _startTimeController.text;
+                    String endTime = _endTimeController.text;
+
+                    if (!timeRangeIsValid(startTime, endTime)) {
                       print("bad time range");
                       return;
                     }
 
-                    print("Ok");
+                    TaskModel task = TaskModel(
+                        name: name,
+                        priority: priority,
+                        date: date,
+                        startTime: startTime,
+                        endTime: endTime);
+
+                    await store.dispatch(AddTask(task: task));
                   },
                   child: const Text("Ok", style: TextStyle(fontSize: 16)),
                 )
