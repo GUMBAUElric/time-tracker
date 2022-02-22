@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
 
-class TTDropdown extends StatefulWidget {
+class TTDropdown extends StatelessWidget {
   final String hintText;
   final String labelText;
   final String? Function(String?)? validator;
   final List<String> dropDownItems;
   final Color? Function(String?)? dropDownItemsColors;
+  final Function callBack;
 
   const TTDropdown(
       {Key? key,
@@ -14,22 +15,15 @@ class TTDropdown extends StatefulWidget {
       this.labelText = "",
       required this.validator,
       required this.dropDownItems,
-      required this.dropDownItemsColors})
+      required this.dropDownItemsColors,
+      required this.callBack})
       : super(key: key);
-
-  @override
-  State<TTDropdown> createState() => _TTDropdownState();
-}
-
-class _TTDropdownState extends State<TTDropdown> {
-  String? dropDownValue;
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
         child: Text(
           item,
-          style:
-              TextStyle(fontSize: 15, color: widget.dropDownItemsColors!(item)),
+          style: TextStyle(fontSize: 15, color: dropDownItemsColors!(item)),
         ),
       );
 
@@ -37,8 +31,8 @@ class _TTDropdownState extends State<TTDropdown> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
         decoration: InputDecoration(
-          hintText: widget.hintText,
-          labelText: widget.labelText,
+          hintText: hintText,
+          labelText: labelText,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           labelStyle: const TextStyle(color: TTColors.primary),
@@ -50,12 +44,11 @@ class _TTDropdownState extends State<TTDropdown> {
               borderSide: const BorderSide(color: TTColors.primary)),
         ),
         isExpanded: true,
-        value: dropDownValue,
         iconSize: 30,
         itemHeight: 50,
-        validator: widget.validator,
+        validator: validator,
         icon: const Icon(Icons.arrow_drop_down, color: TTColors.primary),
-        items: widget.dropDownItems.map(buildMenuItem).toList(),
-        onChanged: (value) => setState(() => dropDownValue = value));
+        items: dropDownItems.map(buildMenuItem).toList(),
+        onChanged: (value) => callBack(value));
   }
 }
