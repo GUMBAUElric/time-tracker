@@ -3,11 +3,11 @@ import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/nav_bar_icon.dart';
 
 class TTNavBar extends StatefulWidget {
-  final List<Map> navigationLayouts;
+  final List<IconData> navigationIcons;
   final Function callback;
 
   const TTNavBar(
-      {Key? key, required this.navigationLayouts, required this.callback})
+      {Key? key, required this.navigationIcons, required this.callback})
       : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class _TTNavBarState extends State<TTNavBar> {
     return currentIndex == index;
   }
 
-  int get _getNavigationLayoutsLength => widget.navigationLayouts.length;
+  int get _getNavigationLayoutsLength => widget.navigationIcons.length;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,11 @@ class _TTNavBarState extends State<TTNavBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ...widget.navigationLayouts.map((item) {
-            int index = widget.navigationLayouts.indexOf(item);
+          ...widget.navigationIcons.map((item) {
+            int index = widget.navigationIcons.indexOf(item);
 
             return TTNavBarIcon(
-                icon: item['icon'],
+                icon: item,
                 opacity: indexIsEqualToCurrentIndex(index) ? 1.0 : 0.5,
                 onPressed: () => setState(() {
                       currentIndex = index;

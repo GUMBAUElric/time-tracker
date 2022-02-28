@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
-import 'package:time_tracker/components/layout_slider.dart';
-import 'package:time_tracker/layouts/add_tasks.dart';
 import 'package:time_tracker/layouts/app_bar.dart';
 import 'package:time_tracker/layouts/nav_bar.dart';
+import 'package:time_tracker/router/home_navigation_router.dart';
 
 class Home extends StatelessWidget {
-  final List<Map<String, dynamic>> _navigationLayouts = [
-    {"icon": Icons.home_rounded, "layout": const Text("Home")},
-    {"icon": Icons.add_rounded, "layout": const TTAddTasks()}
-  ];
-
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final LayoutSlider _layoutSlider =
-        LayoutSlider(navigationLayouts: _navigationLayouts);
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const TTAppBar(
@@ -25,10 +16,11 @@ class Home extends StatelessWidget {
         leading: Icon(Icons.notifications_rounded,
             color: TTColors.primary, size: 25),
       ),
-      body: _layoutSlider,
+      body: homeNavigationRouter.buildNavigation(),
       bottomNavigationBar: TTNavBar(
-          navigationLayouts: _navigationLayouts,
-          callback: (currentIndex) => _layoutSlider.goToPage(currentIndex)),
+          navigationIcons: homeNavigationRouter.navigationIcons,
+          callback: (currentIndex) =>
+              homeNavigationRouter.navigateToPage(currentIndex)),
     );
   }
 }

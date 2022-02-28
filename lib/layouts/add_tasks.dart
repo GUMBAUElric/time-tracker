@@ -7,14 +7,15 @@ import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/components/dropdown.dart';
 import 'package:time_tracker/components/input.dart';
+import 'package:time_tracker/components/picker.dart';
 import 'package:time_tracker/models/task.model.dart';
+import 'package:time_tracker/router/home_navigation_router.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
-import 'package:time_tracker/utils/picker.dart';
 
 class TTAddTasks extends StatefulWidget {
-  const TTAddTasks({Key? key}) : super(key: key);
+  TTAddTasks({Key? key}) : super(key: key);
 
   @override
   State<TTAddTasks> createState() => _TTAddTasksState();
@@ -154,6 +155,8 @@ class _TTAddTasksState extends State<TTAddTasks> {
                         endTime: endTime);
 
                     await store.dispatch(AddTask(task: task));
+
+                    homeNavigationRouter.navigateToPage(0);
                   },
                   child: const Text("Ok", style: TextStyle(fontSize: 16)),
                 )
