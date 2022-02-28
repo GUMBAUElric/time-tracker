@@ -5,10 +5,10 @@ import 'package:redux/redux.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/container.dart';
+import 'package:time_tracker/components/dialog.dart';
 import 'package:time_tracker/models/user.model.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
-import 'package:time_tracker/utils/dialog.dart';
 
 class TTLogoutForm extends StatelessWidget {
   const TTLogoutForm({Key? key}) : super(key: key);
