@@ -22,7 +22,7 @@ class UserSettings extends StatelessWidget {
           ),
         ),
       ),
-      body: const TTLogoutForm(),
+      body: const Center(child: TTLogoutForm()),
     );
   }
 }

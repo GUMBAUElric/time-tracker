@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/nav_bar_icon.dart';
+import 'package:time_tracker/router/home_navigation_router.dart';
 
 class TTNavBar extends StatefulWidget {
-  final List<Map> navigationLayouts;
-  final Function callback;
-
-  const TTNavBar(
-      {Key? key, required this.navigationLayouts, required this.callback})
-      : super(key: key);
+  const TTNavBar({Key? key}) : super(key: key);
 
   @override
   _TTNavBarState createState() => _TTNavBarState();
 }
 
 class _TTNavBarState extends State<TTNavBar> {
-  int currentIndex = 0;
+  List<IconData> navigationIcons = homeNavigationRouter.navigationIcons;
 
   bool indexIsEqualToCurrentIndex(int index) {
-    return currentIndex == index;
+    return homeNavigationRouter.currentRoute == index;
   }
 
-  int get _getNavigationLayoutsLength => widget.navigationLayouts.length;
+  int get _getNavigationLayoutsLength => navigationIcons.length;
+
+  @override
+  void initState() {
+    homeNavigationRouter.addListener(() => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,26 +36,20 @@ class _TTNavBarState extends State<TTNavBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ...widget.navigationLayouts.map((item) {
-            int index = widget.navigationLayouts.indexOf(item);
+          ...navigationIcons.map((item) {
+            int index = navigationIcons.indexOf(item);
 
             return TTNavBarIcon(
-                icon: item['icon'],
+                icon: item,
                 opacity: indexIsEqualToCurrentIndex(index) ? 1.0 : 0.5,
-                onPressed: () => setState(() {
-                      currentIndex = index;
-                      widget.callback(currentIndex);
-                    }));
+                onPressed: () => homeNavigationRouter.navigateToPage(index));
           }).toList(),
           TTNavBarIcon(
               icon: Icons.person_rounded,
               opacity: indexIsEqualToCurrentIndex(_getNavigationLayoutsLength)
                   ? 1.0
                   : 0.5,
-              onPressed: () => setState(() {
-                    currentIndex = _getNavigationLayoutsLength;
-                    Navigator.pushNamed(context, '/user-settings');
-                  })),
+              onPressed: () => Navigator.pushNamed(context, '/user-settings')),
         ],
       ),
     );

@@ -9,6 +9,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: TTAppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -17,7 +18,6 @@ class Login extends StatelessWidget {
             ],
           ),
         ),
-        backgroundColor: Colors.white,
-        body: const TTLoginForm());
+        body: const Center(child: TTLoginForm()));
   }
 }

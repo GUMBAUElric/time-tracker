@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/pages/home.dart';
@@ -26,16 +27,24 @@ class MyApp extends StatelessWidget {
     return StoreProvider<TimeTrackerState>(
       store: timeTrackerStore,
       child: MaterialApp(
+          builder: (context, child) => MediaQuery(
+              data:
+                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+              child: child!),
           title: 'Time Tracker',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: TTFonts.primary),
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          supportedLocales: const [Locale('en'), Locale('fr')],
           initialRoute: "/",
           routes: {
             '/': (context) => const Welcome(),
-            '/form': (context) => const Login(),
-            '/home': (context) => Home(),
-            '/user-settings': (context) => const UserSettings(),
-            //'/user-settings': (context) => const UserSettings()
+            '/login': (context) => const Login(),
+            '/home': (context) => const Home(),
+            '/user-settings': (context) => const UserSettings()
           }),
     );
   }

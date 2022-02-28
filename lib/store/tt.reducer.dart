@@ -1,11 +1,13 @@
 import 'package:redux/redux.dart';
+import 'package:time_tracker/models/task.model.dart';
 import 'package:time_tracker/models/user.model.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 
 final timeTrackerReducer = combineReducers<TimeTrackerState>([
   TypedReducer<TimeTrackerState, LogInUser>(_LogInUser),
-  TypedReducer<TimeTrackerState, LogOutUser>(_LogOutUser)
+  TypedReducer<TimeTrackerState, LogOutUser>(_LogOutUser),
+  TypedReducer<TimeTrackerState, AddTask>(_AddTask),
 ]);
 
 TimeTrackerState _LogInUser(TimeTrackerState state, LogInUser action) {
@@ -19,10 +21,15 @@ TimeTrackerState _LogInUser(TimeTrackerState state, LogInUser action) {
 }
 
 TimeTrackerState _LogOutUser(TimeTrackerState state, LogOutUser action) {
-  String? error;
   UserModel? user;
 
-  return state.copyWith(user: user, error: null);
+  return state.copyWith(user: user);
+}
+
+TimeTrackerState _AddTask(TimeTrackerState state, AddTask action) {
+  List<TaskModel> tasks = [...state.tasks, action.task];
+
+  return state.copyWith(tasks: tasks);
 }
 
 final Store<TimeTrackerState> timeTrackerStore = Store<TimeTrackerState>(
