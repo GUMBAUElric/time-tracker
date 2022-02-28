@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:redux/redux.dart';
 import 'package:time_tracker/base/base.dart';
@@ -151,18 +152,21 @@ class _TTAddTasksState extends State<TTAddTasks> {
                     String endTime = _endTimeController.text;
 
                     if (!timeRangeIsValid(startTime, endTime)) {
-                      print("bad time range");
+                      Fluttertoast.showToast(
+                          msg: "Bad time range",
+                          gravity: ToastGravity.TOP,
+                          backgroundColor: TTColors.tertiary,
+                          timeInSecForIosWeb: 3);
                       return;
                     }
 
-                    TaskModel task = TaskModel(
-                        name: name,
-                        priority: priority,
-                        date: date,
-                        startTime: startTime,
-                        endTime: endTime);
-
-                    await store.dispatch(AddTask(task: task));
+                    await store.dispatch(AddTask(
+                        task: TaskModel(
+                            name: name,
+                            priority: priority,
+                            date: date,
+                            startTime: startTime,
+                            endTime: endTime)));
 
                     setDefault();
                     homeNavigationRouter.navigateToPage(0);
