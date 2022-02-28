@@ -38,15 +38,9 @@ class HomeNavigationRoutes {
 class HomeNavigationRouter extends HomeNavigationRoutes with ChangeNotifier {
   final PageController _pageController = PageController(initialPage: 0);
   late PageView _router;
+  int _currentRoute = 0;
 
-  HomeNavigationRouter({required routes}) : super(routes) {
-    _router = PageView.builder(
-      controller: _pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: routes.length,
-      itemBuilder: (context, i) => Center(child: _routesWidgets[i]),
-    );
-  }
+  HomeNavigationRouter({required routes}) : super(routes);
 
   PageView buildNavigation() {
     _router = PageView.builder(
@@ -59,9 +53,15 @@ class HomeNavigationRouter extends HomeNavigationRoutes with ChangeNotifier {
     return _router;
   }
 
+  // Getters
+  int get currentRoute => _currentRoute;
+
   // HomeNavigation methods
   void navigateToPage(int page) {
     if (page < 0 || page > _numberOfRoutes) page = 0;
+
+    _currentRoute = page;
+    notifyListeners();
 
     _router.controller.animateToPage(page,
         duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);

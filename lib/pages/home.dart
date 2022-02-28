@@ -17,10 +17,7 @@ class Home extends StatelessWidget {
             color: TTColors.primary, size: 25),
       ),
       body: homeNavigationRouter.buildNavigation(),
-      bottomNavigationBar: TTNavBar(
-          navigationIcons: homeNavigationRouter.navigationIcons,
-          callback: (currentIndex) =>
-              homeNavigationRouter.navigateToPage(currentIndex)),
+      bottomNavigationBar: TTNavBar(),
     );
   }
 }
