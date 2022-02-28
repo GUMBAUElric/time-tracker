@@ -12,6 +12,16 @@ String getCurrentTime() {
   return DateFormat('HH:mm').format(DateTime.now()).toString();
 }
 
+String getDashBoardDate() {
+  DateFormat _formatter = DateFormat('MMM');
+  String _day = getCurrentDate().split("/")[0];
+
+  // create a formatter to get months 3 character
+  String _month = _formatter.format(DateTime.now());
+
+  return "$_month $_day";
+}
+
 bool timeRangeIsValid(String startTime, String endTime) {
   // Hours
   double startHour = double.parse(startTime.split(":")[0]);

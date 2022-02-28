@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/layouts/add_tasks.dart';
+import 'package:time_tracker/layouts/dashboard.dart';
 
 class HomeNavigationRoutes {
   late List<Map<String, dynamic>> _routes;
@@ -69,6 +70,6 @@ class HomeNavigationRouter extends HomeNavigationRoutes with ChangeNotifier {
 }
 
 HomeNavigationRouter homeNavigationRouter = HomeNavigationRouter(routes: [
-  {"icon": Icons.home_rounded, "layout": const Text("Home")},
+  {"icon": Icons.home_rounded, "layout": TTDashboard()},
   {"icon": Icons.add_rounded, "layout": TTAddTasks()}
 ]);
