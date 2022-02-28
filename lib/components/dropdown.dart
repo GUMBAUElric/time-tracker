@@ -8,6 +8,7 @@ class TTDropdown extends StatelessWidget {
   final List<String> dropDownItems;
   final Color? Function(String?)? dropDownItemsColors;
   final Function callBack;
+  final String? defaultValue;
 
   const TTDropdown(
       {Key? key,
@@ -16,7 +17,8 @@ class TTDropdown extends StatelessWidget {
       required this.validator,
       required this.dropDownItems,
       required this.dropDownItemsColors,
-      required this.callBack})
+      required this.callBack,
+      this.defaultValue})
       : super(key: key);
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
@@ -46,6 +48,7 @@ class TTDropdown extends StatelessWidget {
         isExpanded: true,
         iconSize: 30,
         itemHeight: 50,
+        value: defaultValue,
         validator: validator,
         icon: const Icon(Icons.arrow_drop_down, color: TTColors.primary),
         items: dropDownItems.map(buildMenuItem).toList(),

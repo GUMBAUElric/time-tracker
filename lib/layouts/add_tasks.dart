@@ -24,21 +24,28 @@ class TTAddTasks extends StatefulWidget {
 class _TTAddTasksState extends State<TTAddTasks> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _taskNameController = TextEditingController();
-  late String _priority;
-  String _date = getCurrentDate();
-  String _startTime = getCurrentTime();
-  String _endTime = getCurrentTime();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _startTimeController = TextEditingController();
+  final TextEditingController _endTimeController = TextEditingController();
+  String _priority = "Low";
+
+  @override
+  void initState() {
+    setDefault();
+  }
+
+  void setDefault() {
+    setState(() {
+      _taskNameController.text = "";
+      _priority = "Low";
+      _dateController.text = getCurrentDate();
+      _startTimeController.text = getCurrentTime();
+      _endTimeController.text = getCurrentTime();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _dateController = TextEditingController();
-    final TextEditingController _startTimeController = TextEditingController();
-    final TextEditingController _endTimeController = TextEditingController();
-
-    _dateController.text = _date;
-    _startTimeController.text = _startTime;
-    _endTimeController.text = _endTime;
-
     return StoreBuilder(
       builder: (BuildContext context, Store<TimeTrackerState> store) {
         return TTContainer(
@@ -64,6 +71,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
                   hintText: "Priority",
                   labelText: "Priority",
                   dropDownItems: const ['Low', 'Middle', 'High'],
+                  defaultValue: _priority,
                   dropDownItemsColors: (val) {
                     if (val == "Low") return TTColors.secondary;
                     if (val == "High") return TTColors.tertiary;
@@ -84,7 +92,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
 
                     if (newDate == null) return;
 
-                    setState(() => _date =
+                    setState(() => _dateController.text =
                         DateFormat('dd/MM/yyyy').format(newDate).toString());
                   },
                 ),
@@ -106,7 +114,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
 
                             if (newStartTime == null) return;
 
-                            setState(() => _startTime =
+                            setState(() => _startTimeController.text =
                                 newStartTime.format(context).toString());
                           },
                         )),
@@ -125,7 +133,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
 
                             if (newEndTime == null) return;
 
-                            setState(() => _endTime =
+                            setState(() => _endTimeController.text =
                                 newEndTime.format(context).toString());
                           },
                         ))
@@ -138,7 +146,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
 
                     String name = _taskNameController.text;
                     String priority = _priority;
-                    String date = _date;
+                    String date = _dateController.text;
                     String startTime = _startTimeController.text;
                     String endTime = _endTimeController.text;
 
@@ -156,6 +164,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
 
                     await store.dispatch(AddTask(task: task));
 
+                    setDefault();
                     homeNavigationRouter.navigateToPage(0);
                   },
                   child: const Text("Ok", style: TextStyle(fontSize: 16)),
