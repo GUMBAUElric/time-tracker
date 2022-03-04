@@ -1,17 +1,19 @@
 import 'package:uuid/uuid.dart';
 
 class TaskModel {
-  late String id = const Uuid().v4();
-  late String name;
-  late String priority;
-  late String date;
-  late String startTime;
-  late String endTime;
+  final String id = const Uuid().v4();
+  final String name;
+  final String priority;
+  final String date;
+  final String startTime;
+  final String endTime;
+  List<String> persons;
 
   TaskModel(
       {required this.name,
       required this.priority,
       required this.date,
       required this.startTime,
-      required this.endTime});
+      required this.endTime,
+      required this.persons});
 }

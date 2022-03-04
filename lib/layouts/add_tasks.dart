@@ -30,7 +30,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
   String _priority = "Low";
-  List<String> persons = [];
+  List<String> _persons = [];
   UniqueKey _key = UniqueKey();
 
   @override
@@ -45,7 +45,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
       _dateController.text = getCurrentDate();
       _startTimeController.text = getCurrentTime();
       _endTimeController.text = getCurrentTime();
-      persons = [];
+      _persons = [];
       _key = UniqueKey();
     });
   }
@@ -88,7 +88,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
                 ),
                 TTTagInput(
                   key: _key,
-                  tags: persons,
+                  tags: _persons,
                 ),
                 TTInput(
                   controller: _dateController,
@@ -155,7 +155,6 @@ class _TTAddTasksState extends State<TTAddTasks> {
                     if (!_formKey.currentState!.validate()) return;
 
                     String name = _taskNameController.text;
-                    String priority = _priority;
                     String date = _dateController.text;
                     String startTime = _startTimeController.text;
                     String endTime = _endTimeController.text;
@@ -172,10 +171,11 @@ class _TTAddTasksState extends State<TTAddTasks> {
                     await store.dispatch(AddTask(
                         task: TaskModel(
                             name: name,
-                            priority: priority,
+                            priority: _priority,
                             date: date,
                             startTime: startTime,
-                            endTime: endTime)));
+                            endTime: endTime,
+                            persons: _persons)));
 
                     setDefault();
                     router.navigateToPage(0);
