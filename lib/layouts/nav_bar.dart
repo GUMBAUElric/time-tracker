@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/nav_bar_icon.dart';
-import 'package:time_tracker/router/home_navigation_router.dart';
+import 'package:time_tracker/router/router.dart';
 
 class TTNavBar extends StatefulWidget {
   const TTNavBar({Key? key}) : super(key: key);
@@ -11,10 +11,12 @@ class TTNavBar extends StatefulWidget {
 }
 
 class _TTNavBarState extends State<TTNavBar> {
-  List<IconData> navigationIcons = homeNavigationRouter.navigationIcons;
+  List<IconData> navigationIcons = router.navigationIcons;
+
+  void callState() => setState(() {});
 
   bool indexIsEqualToCurrentIndex(int index) {
-    return homeNavigationRouter.currentRoute == index;
+    return router.currentRoute == index;
   }
 
   int get _getNavigationLayoutsLength => navigationIcons.length;
@@ -22,18 +24,14 @@ class _TTNavBarState extends State<TTNavBar> {
   @override
   void initState() {
     super.initState();
-    if (mounted) {
-      homeNavigationRouter.addListener(() {
-        if (!mounted) return;
-        setState(() {});
-      });
-    }
+    router.addListener(callState);
   }
 
   @override
   void dispose() {
     super.dispose();
-    homeNavigationRouter.removeListener(() {});
+    router.removeListener(callState);
+    router.setCurrentRouteToDefault();
   }
 
   @override
@@ -54,7 +52,7 @@ class _TTNavBarState extends State<TTNavBar> {
             return TTNavBarIcon(
                 icon: item,
                 opacity: indexIsEqualToCurrentIndex(index) ? 1.0 : 0.5,
-                onPressed: () => homeNavigationRouter.navigateToPage(index));
+                onPressed: () => router.navigateToPage(index));
           }).toList(),
           TTNavBarIcon(
               icon: Icons.person_rounded,
