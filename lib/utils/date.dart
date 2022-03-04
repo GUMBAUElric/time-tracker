@@ -12,6 +12,11 @@ int getCurrentDay() {
   return DateTime.now().day;
 }
 
+String getCurrentFormattedDay() {
+  int _currentDay = getCurrentDay();
+  return (_currentDay < 9) ? "0$_currentDay" : _currentDay.toString();
+}
+
 String getCurrentTime() {
   return DateFormat('HH:mm').format(DateTime.now()).toString();
 }

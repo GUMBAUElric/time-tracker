@@ -17,12 +17,11 @@ class TimeTrackerState {
       this.error});
 
   factory TimeTrackerState.initState() {
-    String _currentDay = (getCurrentDay() < 9)
-        ? "0${getCurrentDay()}"
-        : getCurrentDay().toString();
-
     return TimeTrackerState(
-        user: null, tasks: const [], daySelected: _currentDay, error: null);
+        user: null,
+        tasks: const [],
+        daySelected: getCurrentFormattedDay(),
+        error: null);
   }
 
   TimeTrackerState copyWith(
