@@ -70,6 +70,6 @@ class HomeNavigationRouter extends HomeNavigationRoutes with ChangeNotifier {
 }
 
 HomeNavigationRouter homeNavigationRouter = HomeNavigationRouter(routes: [
-  {"icon": Icons.home_rounded, "layout": TTDashboard()},
+  {"icon": Icons.home_rounded, "layout": const TTDashboard()},
   {"icon": Icons.add_rounded, "layout": TTAddTasks()}
 ]);
