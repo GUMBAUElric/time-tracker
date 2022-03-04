@@ -1,6 +1,5 @@
 import 'package:redux/redux.dart';
 import 'package:time_tracker/models/task.model.dart';
-import 'package:time_tracker/router/home_navigation_router.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
@@ -23,7 +22,6 @@ TimeTrackerState _LogInUser(TimeTrackerState state, LogInUser action) {
 }
 
 TimeTrackerState _LogOutUser(TimeTrackerState state, LogOutUser action) {
-  homeNavigationRouter.navigateToPage(0);
   return state.copyWith(
       user: null,
       tasks: const [],

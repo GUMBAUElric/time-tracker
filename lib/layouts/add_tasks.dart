@@ -10,7 +10,7 @@ import 'package:time_tracker/components/dropdown.dart';
 import 'package:time_tracker/components/input.dart';
 import 'package:time_tracker/components/picker.dart';
 import 'package:time_tracker/models/task.model.dart';
-import 'package:time_tracker/router/home_navigation_router.dart';
+import 'package:time_tracker/router/router.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
@@ -169,7 +169,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
                             endTime: endTime)));
 
                     setDefault();
-                    homeNavigationRouter.navigateToPage(0);
+                    router.navigateToPage(0);
                   },
                   child: const Text("Ok", style: TextStyle(fontSize: 16)),
                 )

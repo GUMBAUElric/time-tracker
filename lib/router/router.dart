@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker/layouts/add_tasks.dart';
 import 'package:time_tracker/layouts/dashboard.dart';
 
-class HomeNavigationRoutes {
+class Routes {
   late List<Map<String, dynamic>> _routes;
   late List<Widget> _routesWidgets;
   late List<IconData> _routesIcons;
 
-  HomeNavigationRoutes(List<Map<String, dynamic>> routes) {
+  Routes(List<Map<String, dynamic>> routes) {
     _routes = routes;
     _routesWidgets = _getRoutesWidgets();
     _routesIcons = _getRoutesIcons();
@@ -36,12 +36,12 @@ class HomeNavigationRoutes {
   }
 }
 
-class HomeNavigationRouter extends HomeNavigationRoutes with ChangeNotifier {
+class Router extends Routes with ChangeNotifier {
   final PageController _pageController = PageController(initialPage: 0);
   late PageView _router;
   int _currentRoute = 0;
 
-  HomeNavigationRouter({required routes}) : super(routes);
+  Router({required routes}) : super(routes);
 
   PageView buildNavigation() {
     _router = PageView.builder(
@@ -67,9 +67,13 @@ class HomeNavigationRouter extends HomeNavigationRoutes with ChangeNotifier {
     _router.controller.animateToPage(page,
         duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
+
+  void setCurrentRouteToDefault() {
+    _currentRoute = 0;
+  }
 }
 
-HomeNavigationRouter homeNavigationRouter = HomeNavigationRouter(routes: [
+Router router = Router(routes: [
   {"icon": Icons.home_rounded, "layout": const TTDashboard()},
   {"icon": Icons.add_rounded, "layout": TTAddTasks()}
 ]);
