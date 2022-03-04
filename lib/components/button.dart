@@ -8,7 +8,7 @@ class TTButton extends StatelessWidget {
   double borderRadius;
   Color backgroundColor;
   Widget child;
-  void Function() onPressed;
+  void Function()? onPressed;
 
   TTButton(
       {Key? key,
@@ -18,7 +18,7 @@ class TTButton extends StatelessWidget {
       this.padding = 10,
       this.borderRadius = TTBorderRadius.normal,
       this.backgroundColor = TTColors.primary,
-      required this.onPressed})
+      this.onPressed})
       : super(key: key);
 
   @override

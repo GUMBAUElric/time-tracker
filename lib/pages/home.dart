@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/layouts/app_bar.dart';
 import 'package:time_tracker/layouts/nav_bar.dart';
-import 'package:time_tracker/router/home_navigation_router.dart';
+import 'package:time_tracker/router/router.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,8 +16,8 @@ class Home extends StatelessWidget {
         leading: Icon(Icons.notifications_rounded,
             color: TTColors.primary, size: 25),
       ),
-      body: homeNavigationRouter.buildNavigation(),
-      bottomNavigationBar: TTNavBar(),
+      body: router.buildNavigation(),
+      bottomNavigationBar: const TTNavBar(),
     );
   }
 }
