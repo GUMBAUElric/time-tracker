@@ -15,6 +15,7 @@ import 'package:time_tracker/router/router.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
+import 'package:time_tracker/utils/random_avatar.dart';
 
 class TTAddTasks extends StatefulWidget {
   const TTAddTasks({Key? key}) : super(key: key);
@@ -158,6 +159,10 @@ class _TTAddTasksState extends State<TTAddTasks> {
                     String date = _dateController.text;
                     String startTime = _startTimeController.text;
                     String endTime = _endTimeController.text;
+                    List<Map<String, String>> persons = _persons
+                        .map((_person) =>
+                            {"name": _person, "avatar": randomAvatar()})
+                        .toList();
 
                     if (!timeRangeIsValid(startTime, endTime)) {
                       Fluttertoast.showToast(
@@ -175,7 +180,7 @@ class _TTAddTasksState extends State<TTAddTasks> {
                             date: date,
                             startTime: startTime,
                             endTime: endTime,
-                            persons: _persons)));
+                            persons: persons)));
 
                     setDefault();
                     router.navigateToPage(0);

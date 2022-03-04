@@ -7,7 +7,7 @@ class TaskModel {
   final String date;
   final String startTime;
   final String endTime;
-  List<String> persons;
+  List<Map<String, String>> persons;
 
   TaskModel(
       {required this.name,
