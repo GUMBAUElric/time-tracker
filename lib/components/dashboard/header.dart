@@ -14,6 +14,7 @@ class TTDashBoardHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return TTContainer(
       width: double.infinity,
+      height: 180,
       marginHorizontal: 0,
       marginVertical: 0,
       child: Column(
