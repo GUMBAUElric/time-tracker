@@ -6,8 +6,9 @@ import 'package:time_tracker/models/task.model.dart';
 
 class TTDashBoardTaskCard extends StatelessWidget {
   final TaskModel task;
+  final List<Widget> _avatars = [];
 
-  const TTDashBoardTaskCard({Key? key, required this.task}) : super(key: key);
+  TTDashBoardTaskCard({Key? key, required this.task}) : super(key: key);
 
   Color getColorCard(String priority) {
     if (priority == "High") {
@@ -17,6 +18,37 @@ class TTDashBoardTaskCard extends StatelessWidget {
     } else {
       return TTColors.secondary;
     }
+  }
+
+  List<Widget> getAvatars() {
+    if (task.persons.isEmpty) return _avatars;
+    int _length = 1;
+
+    if (task.persons.length >= 2) _length = 2;
+
+    for (int i = 0; i < _length; i++) {
+      _avatars.add(Positioned(
+        left: (i == 0) ? 0 : 25,
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(task.persons[i]['avatar']!),
+        ),
+      ));
+    }
+
+    if (task.persons.length <= 2) return _avatars;
+
+    _avatars.add(Positioned(
+      left: 50,
+      child: CircleAvatar(
+        backgroundColor: Colors.white.withOpacity(0.7),
+        child: Text(
+          "${task.persons.length - 2}+",
+          style: const TextStyle(color: TTColors.primary),
+        ),
+      ),
+    ));
+
+    return _avatars;
   }
 
   @override
@@ -70,29 +102,7 @@ class TTDashBoardTaskCard extends StatelessWidget {
                     marginVertical: 0,
                     child: Stack(
                       alignment: Alignment.centerLeft,
-                      children: const [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083379_960_720.jpg'),
-                        ),
-                        Positioned(
-                          left: 25,
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                'https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'),
-                          ),
-                        ),
-                        /*Positioned(
-                          left: 50,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white.withOpacity(0.7),
-                            child: Text(
-                              "3+",
-                              style: TextStyle(color: TTColors.primary),
-                            ),
-                          ),
-                        )*/
-                      ],
+                      children: getAvatars(),
                     ),
                   ),
                   Text("${task.startTime} - ${task.endTime}",
