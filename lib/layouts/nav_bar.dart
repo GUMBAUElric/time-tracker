@@ -21,7 +21,19 @@ class _TTNavBarState extends State<TTNavBar> {
 
   @override
   void initState() {
-    homeNavigationRouter.addListener(() => setState(() {}));
+    super.initState();
+    if (mounted) {
+      homeNavigationRouter.addListener(() {
+        if (!mounted) return;
+        setState(() {});
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    homeNavigationRouter.removeListener(() {});
   }
 
   @override

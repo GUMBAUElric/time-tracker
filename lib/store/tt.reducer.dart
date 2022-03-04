@@ -1,8 +1,9 @@
 import 'package:redux/redux.dart';
 import 'package:time_tracker/models/task.model.dart';
-import 'package:time_tracker/models/user.model.dart';
+import 'package:time_tracker/router/home_navigation_router.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
+import 'package:time_tracker/utils/date.dart';
 
 final timeTrackerReducer = combineReducers<TimeTrackerState>([
   TypedReducer<TimeTrackerState, LogInUser>(_LogInUser),
@@ -22,9 +23,12 @@ TimeTrackerState _LogInUser(TimeTrackerState state, LogInUser action) {
 }
 
 TimeTrackerState _LogOutUser(TimeTrackerState state, LogOutUser action) {
-  UserModel? user;
-
-  return state.copyWith(user: user);
+  homeNavigationRouter.navigateToPage(0);
+  return state.copyWith(
+      user: null,
+      tasks: const [],
+      daySelected: getCurrentFormattedDay(),
+      error: null);
 }
 
 TimeTrackerState _AddTask(TimeTrackerState state, AddTask action) {
