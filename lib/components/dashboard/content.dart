@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/container.dart';
+import 'package:time_tracker/components/dashboard/task_card.dart';
 import 'package:time_tracker/models/task.model.dart';
 
 class TTDashBoardContent extends StatelessWidget {
@@ -9,16 +9,6 @@ class TTDashBoardContent extends StatelessWidget {
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   TTDashBoardContent({Key? key, required this.tasks}) : super(key: key);
-
-  Color? getColorCard(String priority) {
-    if (priority == "High") {
-      return TTColors.tertiary;
-    } else if (priority == "Middle") {
-      return TTColors.secondary;
-    } else {
-      return Colors.white.withOpacity(0.5);
-    }
-  }
 
   void _loadItems() {
     var future = Future(() {});
@@ -30,23 +20,7 @@ class TTDashBoardContent extends StatelessWidget {
           .then((_) => Future.delayed(const Duration(milliseconds: 200), () {
                 TaskModel _task = tasks[i];
 
-                _listItems.add(Card(
-                  color: getColorCard(_task.priority),
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: InkWell(
-                    onTap: () => print('card pressed !'),
-                    child: TTContainer(
-                      width: double.infinity,
-                      height: 80,
-                      marginVertical: 10,
-                      marginHorizontal: 10,
-                      child: Center(child: Text(_task.name)),
-                    ),
-                  ),
-                ));
+                _listItems.add(TTDashBoardTaskCard(task: _task));
 
                 _listKey.currentState?.insertItem(_listItems.length - 1,
                     duration: const Duration(milliseconds: 500));
