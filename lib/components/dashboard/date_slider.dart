@@ -51,6 +51,8 @@ class _TTDashBoardDateSliderState extends State<TTDashBoardDateSlider> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () async {
+              if (index == currentIndex) return;
+
               late String _daySelected;
 
               _daySelected = (index < 9) ? "0${index + 1}" : "${index + 1}";
