@@ -23,11 +23,18 @@ class _TTDashBoardDateSliderState extends State<TTDashBoardDateSlider> {
     setDefaultSelectedDate();
   }
 
-  void setDefaultSelectedDate() {
-    currentIndex = getCurrentDay() - 1;
+  void setDefaultSelectedDate() async {
+    try {
+      await timeTrackerStore
+          .dispatch(SetDaySelected(daySelected: getCurrentFormattedDay()));
 
-    WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => itemController.jumpTo(index: currentIndex));
+      currentIndex = getCurrentDay() - 1;
+
+      WidgetsBinding.instance!.addPostFrameCallback(
+          (_) => itemController.jumpTo(index: currentIndex));
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
