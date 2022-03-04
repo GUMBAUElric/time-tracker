@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/container.dart';
+import 'package:time_tracker/store/tt.actions.dart';
+import 'package:time_tracker/store/tt.reducer.dart';
 import 'package:time_tracker/utils/date.dart';
 
 class TTDashBoardDateSlider extends StatefulWidget {
@@ -41,7 +43,16 @@ class _TTDashBoardDateSliderState extends State<TTDashBoardDateSlider> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () => setState(() => currentIndex = index),
+            onTap: () async {
+              late String _daySelected;
+
+              _daySelected = (index < 9) ? "0${index + 1}" : "${index + 1}";
+
+              await timeTrackerStore
+                  .dispatch(SetDaySelected(daySelected: _daySelected));
+
+              setState(() => currentIndex = index);
+            },
             child: Container(
                 decoration: (index == currentIndex)
                     ? BoxDecoration(

@@ -14,5 +14,11 @@ class LogOutUser {
 class AddTask {
   TaskModel task;
 
-  AddTask({ required this.task });
+  AddTask({required this.task});
+}
+
+class SetDaySelected {
+  String daySelected;
+
+  SetDaySelected({required this.daySelected});
 }
