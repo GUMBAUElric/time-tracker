@@ -4,17 +4,15 @@ import 'package:redux/redux.dart';
 import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/components/dashboard/header.dart';
 import 'package:time_tracker/models/task.model.dart';
+import 'package:time_tracker/store/tt.selectors.dart';
 import 'package:time_tracker/store/tt.state.dart';
-import 'package:time_tracker/utils/date.dart';
 
 class TTDashboard extends StatelessWidget {
   const TTDashboard({Key? key}) : super(key: key);
 
   List<TaskModel> getTasksByCurrentDay(List<TaskModel> tasks) {
-    String _currentDay = getCurrentDate().split("/")[0];
-
     return tasks
-        .where((task) => task.date.split("/")[0] == _currentDay)
+        .where((task) => task.date.split("/")[0] == getDaySelected())
         .toList();
   }
 
