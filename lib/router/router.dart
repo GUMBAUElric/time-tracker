@@ -75,5 +75,5 @@ class Router extends Routes with ChangeNotifier {
 
 Router router = Router(routes: [
   {"icon": Icons.home_rounded, "layout": const TTDashboard()},
-  {"icon": Icons.add_rounded, "layout": TTAddTasks()}
+  {"icon": Icons.add_rounded, "layout": const TTAddTasks()}
 ]);
