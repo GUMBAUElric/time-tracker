@@ -13,6 +13,7 @@ class EditTask extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: TTAppBar(
         title: SizedBox(
           width: 140,

@@ -11,6 +11,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: const TTAppBar(
         title: Text('Time Tracker', style: TextStyle(color: TTColors.primary)),
         leading: Icon(Icons.notifications_rounded,

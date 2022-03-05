@@ -10,6 +10,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
         appBar: TTAppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
