@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:time_tracker/layouts/add_tasks.dart';
 import 'package:time_tracker/layouts/dashboard.dart';
+import 'package:time_tracker/layouts/handle_task.dart';
 
 class Routes {
   late List<Map<String, dynamic>> _routes;
@@ -75,5 +75,8 @@ class Router extends Routes with ChangeNotifier {
 
 Router router = Router(routes: [
   {"icon": Icons.home_rounded, "layout": const TTDashboard()},
-  {"icon": Icons.add_rounded, "layout": const TTAddTasks()}
+  {
+    "icon": Icons.add_rounded,
+    "layout": const TTHandleTasks(handleTasksType: HandleTasksType.addTask)
+  }
 ]);

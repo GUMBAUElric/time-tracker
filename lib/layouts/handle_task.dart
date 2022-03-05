@@ -17,14 +17,19 @@ import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
 import 'package:time_tracker/utils/random_avatar.dart';
 
-class TTAddTasks extends StatefulWidget {
-  const TTAddTasks({Key? key}) : super(key: key);
+enum HandleTasksType { addTask, updateTask }
+
+class TTHandleTasks extends StatefulWidget {
+  final HandleTasksType handleTasksType;
+
+  const TTHandleTasks({Key? key, required this.handleTasksType})
+      : super(key: key);
 
   @override
-  State<TTAddTasks> createState() => _TTAddTasksState();
+  State<TTHandleTasks> createState() => _TTTTHandleTasksState();
 }
 
-class _TTAddTasksState extends State<TTAddTasks> {
+class _TTTTHandleTasksState extends State<TTHandleTasks> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _taskNameController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
