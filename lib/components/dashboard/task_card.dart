@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/models/task.model.dart';
+import 'package:time_tracker/pages/edit_task.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.reducer.dart';
 
@@ -62,17 +64,22 @@ class TTDashBoardTaskCard extends StatelessWidget {
         motion: const BehindMotion(),
         extentRatio: 0.55,
         children: [
-          const SlidableAction(
-            onPressed: null,
+          SlidableAction(
+            onPressed: (BuildContext context) async {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.bottomToTop,
+                      child: EditTask(taskToUpdate: task)));
+            },
             foregroundColor: TTColors.secondary,
             icon: Icons.edit,
             label: 'Edit',
             spacing: 1.0,
           ),
           SlidableAction(
-            onPressed: (BuildContext context) {
-              timeTrackerStore.dispatch(DeleteTask(task: task));
-            },
+            onPressed: (BuildContext context) =>
+                timeTrackerStore.dispatch(DeleteTask(task: task)),
             foregroundColor: TTColors.tertiary,
             icon: Icons.delete,
             label: 'Delete',

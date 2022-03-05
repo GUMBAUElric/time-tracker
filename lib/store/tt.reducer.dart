@@ -8,6 +8,7 @@ final timeTrackerReducer = combineReducers<TimeTrackerState>([
   TypedReducer<TimeTrackerState, LogInUser>(_LogInUser),
   TypedReducer<TimeTrackerState, LogOutUser>(_LogOutUser),
   TypedReducer<TimeTrackerState, AddTask>(_AddTask),
+  TypedReducer<TimeTrackerState, UpdateTask>(_UpdateTask),
   TypedReducer<TimeTrackerState, DeleteTask>(_DeleteTask),
   TypedReducer<TimeTrackerState, SetDaySelected>(_SetDaySelected),
 ]);
@@ -31,9 +32,20 @@ TimeTrackerState _LogOutUser(TimeTrackerState state, LogOutUser action) {
 }
 
 TimeTrackerState _AddTask(TimeTrackerState state, AddTask action) {
-  List<TaskModel> tasks = [...state.tasks, action.task];
+  List<TaskModel> _tasks = [...state.tasks, action.task];
 
-  return state.copyWith(tasks: tasks);
+  return state.copyWith(tasks: _tasks);
+}
+
+TimeTrackerState _UpdateTask(TimeTrackerState state, UpdateTask action) {
+  List<TaskModel> _tasks = [...state.tasks];
+  TaskModel _taskUpdated = action.taskUpdated;
+
+  int index = _tasks.indexOf(_taskUpdated);
+
+  _tasks[index] = _taskUpdated;
+
+  return state.copyWith(tasks: _tasks);
 }
 
 TimeTrackerState _DeleteTask(TimeTrackerState state, DeleteTask action) {

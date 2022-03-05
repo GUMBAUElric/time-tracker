@@ -16,15 +16,23 @@ import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
 import 'package:time_tracker/utils/random_avatar.dart';
+import 'package:uuid/uuid.dart';
 
-class TTAddTasks extends StatefulWidget {
-  const TTAddTasks({Key? key}) : super(key: key);
+enum HandleTasksType { addTask, updateTask }
+
+class TTHandleTasks extends StatefulWidget {
+  final HandleTasksType handleTasksType;
+  final TaskModel? taskToUpdate;
+
+  const TTHandleTasks(
+      {Key? key, required this.handleTasksType, this.taskToUpdate})
+      : super(key: key);
 
   @override
-  State<TTAddTasks> createState() => _TTAddTasksState();
+  State<TTHandleTasks> createState() => _TTTTHandleTasksState();
 }
 
-class _TTAddTasksState extends State<TTAddTasks> {
+class _TTTTHandleTasksState extends State<TTHandleTasks> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _taskNameController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -34,8 +42,16 @@ class _TTAddTasksState extends State<TTAddTasks> {
   List<String> _persons = [];
   UniqueKey _key = UniqueKey();
 
+  bool checkIfIsSameType(HandleTasksType handleTasksType) {
+    return widget.handleTasksType == handleTasksType;
+  }
+
   @override
   void initState() {
+    if (checkIfIsSameType(HandleTasksType.updateTask)) {
+      setDefaultTask();
+      return;
+    }
     setDefault();
   }
 
@@ -47,6 +63,20 @@ class _TTAddTasksState extends State<TTAddTasks> {
       _startTimeController.text = getCurrentTime();
       _endTimeController.text = getCurrentTime();
       _persons = [];
+      _key = UniqueKey();
+    });
+  }
+
+  void setDefaultTask() {
+    setState(() {
+      _taskNameController.text = widget.taskToUpdate!.name;
+      _priority = widget.taskToUpdate!.priority;
+      _dateController.text = widget.taskToUpdate!.date;
+      _startTimeController.text = widget.taskToUpdate!.startTime;
+      _endTimeController.text = widget.taskToUpdate!.endTime;
+      _persons = widget.taskToUpdate!.persons
+          .map((person) => person['name']!)
+          .toList();
       _key = UniqueKey();
     });
   }
@@ -63,9 +93,12 @@ class _TTAddTasksState extends State<TTAddTasks> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text("Add Task",
-                    style:
-                        TextStyle(fontSize: 19, fontFamily: TTFonts.secondary)),
+                Text(
+                    checkIfIsSameType(HandleTasksType.addTask)
+                        ? "Add Task"
+                        : "Update Task",
+                    style: const TextStyle(
+                        fontSize: 19, fontFamily: TTFonts.secondary)),
                 TTInput(
                   controller: _taskNameController,
                   validator: (val) => val!.isEmpty ? "Wrong task name !" : null,
@@ -173,19 +206,42 @@ class _TTAddTasksState extends State<TTAddTasks> {
                       return;
                     }
 
-                    await store.dispatch(AddTask(
-                        task: TaskModel(
-                            name: name,
-                            priority: _priority,
-                            date: date,
-                            startTime: startTime,
-                            endTime: endTime,
-                            persons: persons)));
+                    try {
+                      if (checkIfIsSameType(HandleTasksType.addTask)) {
+                        await store.dispatch(AddTask(
+                            task: TaskModel(
+                                id: const Uuid().v4(),
+                                name: name,
+                                priority: _priority,
+                                date: date,
+                                startTime: startTime,
+                                endTime: endTime,
+                                persons: persons)));
+                        setDefault();
+                        router.navigateToPage(0);
+                        return;
+                      }
 
-                    setDefault();
-                    router.navigateToPage(0);
+                      widget.taskToUpdate!.name = name;
+                      widget.taskToUpdate!.priority = _priority;
+                      widget.taskToUpdate!.date = date;
+                      widget.taskToUpdate!.startTime = startTime;
+                      widget.taskToUpdate!.endTime = endTime;
+                      widget.taskToUpdate!.persons = persons;
+
+                      await store.dispatch(
+                          UpdateTask(taskUpdated: widget.taskToUpdate!));
+
+                      Navigator.pop(context);
+                    } catch (e) {
+                      print(e);
+                    }
                   },
-                  child: const Text("Ok", style: TextStyle(fontSize: 16)),
+                  child: Text(
+                      checkIfIsSameType(HandleTasksType.addTask)
+                          ? "Add"
+                          : "Update",
+                      style: const TextStyle(fontSize: 16)),
                 )
               ],
             ),

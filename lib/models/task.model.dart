@@ -1,12 +1,10 @@
-import 'package:uuid/uuid.dart';
-
 class TaskModel {
-  final String id = const Uuid().v4();
-  final String name;
-  final String priority;
-  final String date;
-  final String startTime;
-  final String endTime;
+  final String id;
+  late String name;
+  late String priority;
+  late String date;
+  late String startTime;
+  late String endTime;
   List<Map<String, String>> persons;
 
   TaskModel(
@@ -15,5 +13,6 @@ class TaskModel {
       required this.date,
       required this.startTime,
       required this.endTime,
-      required this.persons});
+      required this.persons,
+      required this.id});
 }

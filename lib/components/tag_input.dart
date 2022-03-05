@@ -12,6 +12,7 @@ class TTTagInput extends StatelessWidget {
     return TextFieldTags(
       onTag: (tag) => tags.add(tag),
       onDelete: (tag) => tags.remove(tag),
+      initialTags: tags,
       tagsStyler: TagsStyler(
           tagTextStyle: const TextStyle(color: Colors.white),
           tagTextPadding: const EdgeInsets.symmetric(horizontal: 5),
