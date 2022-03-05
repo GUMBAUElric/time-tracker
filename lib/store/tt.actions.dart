@@ -17,6 +17,12 @@ class AddTask {
   AddTask({required this.task});
 }
 
+class DeleteTask {
+  TaskModel task;
+
+  DeleteTask({ required this.task });
+}
+
 class SetDaySelected {
   String daySelected;
 

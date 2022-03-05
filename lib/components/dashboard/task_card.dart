@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:time_tracker/base/base.dart';
 import 'package:time_tracker/components/button.dart';
 import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/models/task.model.dart';
+import 'package:time_tracker/store/tt.actions.dart';
+import 'package:time_tracker/store/tt.reducer.dart';
 
 class TTDashBoardTaskCard extends StatelessWidget {
   final TaskModel task;
@@ -53,14 +56,36 @@ class TTDashBoardTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: getColorCard(task.priority),
-      margin: const EdgeInsets.symmetric(vertical: 20),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+    return Slidable(
+      key: const ValueKey(0),
+      endActionPane: ActionPane(
+        motion: const BehindMotion(),
+        extentRatio: 0.55,
+        children: [
+          const SlidableAction(
+            onPressed: null,
+            foregroundColor: TTColors.secondary,
+            icon: Icons.edit,
+            label: 'Edit',
+            spacing: 1.0,
+          ),
+          SlidableAction(
+            onPressed: (BuildContext context) {
+              timeTrackerStore.dispatch(DeleteTask(task: task));
+            },
+            foregroundColor: TTColors.tertiary,
+            icon: Icons.delete,
+            label: 'Delete',
+            spacing: 1.0,
+          ),
+        ],
       ),
-      child: InkWell(
-        onTap: () => print('card pressed !'),
+      child: Card(
+        color: getColorCard(task.priority),
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: TTContainer(
           width: double.infinity,
           height: 100,
