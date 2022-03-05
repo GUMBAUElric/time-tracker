@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:time_tracker/components/container.dart';
+import 'package:time_tracker/components/dashboard/content.dart';
 import 'package:time_tracker/components/dashboard/header.dart';
 import 'package:time_tracker/models/task.model.dart';
 import 'package:time_tracker/store/tt.selectors.dart';
@@ -29,7 +30,10 @@ class TTDashboard extends StatelessWidget {
           marginHorizontal: 19,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [TTDashBoardHeader(numberOfTasks: _tasks.length)],
+            children: [
+              TTDashBoardHeader(numberOfTasks: _tasks.length),
+              TTDashBoardContent(tasks: _tasks)
+            ],
           ),
         );
       },

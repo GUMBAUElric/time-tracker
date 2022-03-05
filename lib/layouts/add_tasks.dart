@@ -9,14 +9,16 @@ import 'package:time_tracker/components/container.dart';
 import 'package:time_tracker/components/dropdown.dart';
 import 'package:time_tracker/components/input.dart';
 import 'package:time_tracker/components/picker.dart';
+import 'package:time_tracker/components/tag_input.dart';
 import 'package:time_tracker/models/task.model.dart';
 import 'package:time_tracker/router/router.dart';
 import 'package:time_tracker/store/tt.actions.dart';
 import 'package:time_tracker/store/tt.state.dart';
 import 'package:time_tracker/utils/date.dart';
+import 'package:time_tracker/utils/random_avatar.dart';
 
 class TTAddTasks extends StatefulWidget {
-  TTAddTasks({Key? key}) : super(key: key);
+  const TTAddTasks({Key? key}) : super(key: key);
 
   @override
   State<TTAddTasks> createState() => _TTAddTasksState();
@@ -29,6 +31,8 @@ class _TTAddTasksState extends State<TTAddTasks> {
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
   String _priority = "Low";
+  List<String> _persons = [];
+  UniqueKey _key = UniqueKey();
 
   @override
   void initState() {
@@ -42,6 +46,8 @@ class _TTAddTasksState extends State<TTAddTasks> {
       _dateController.text = getCurrentDate();
       _startTimeController.text = getCurrentTime();
       _endTimeController.text = getCurrentTime();
+      _persons = [];
+      _key = UniqueKey();
     });
   }
 
@@ -80,6 +86,10 @@ class _TTAddTasksState extends State<TTAddTasks> {
                   },
                   callBack: (selectedPriority) =>
                       setState(() => _priority = selectedPriority),
+                ),
+                TTTagInput(
+                  key: _key,
+                  tags: _persons,
                 ),
                 TTInput(
                   controller: _dateController,
@@ -146,10 +156,13 @@ class _TTAddTasksState extends State<TTAddTasks> {
                     if (!_formKey.currentState!.validate()) return;
 
                     String name = _taskNameController.text;
-                    String priority = _priority;
                     String date = _dateController.text;
                     String startTime = _startTimeController.text;
                     String endTime = _endTimeController.text;
+                    List<Map<String, String>> persons = _persons
+                        .map((_person) =>
+                            {"name": _person, "avatar": randomAvatar()})
+                        .toList();
 
                     if (!timeRangeIsValid(startTime, endTime)) {
                       Fluttertoast.showToast(
@@ -163,10 +176,11 @@ class _TTAddTasksState extends State<TTAddTasks> {
                     await store.dispatch(AddTask(
                         task: TaskModel(
                             name: name,
-                            priority: priority,
+                            priority: _priority,
                             date: date,
                             startTime: startTime,
-                            endTime: endTime)));
+                            endTime: endTime,
+                            persons: persons)));
 
                     setDefault();
                     router.navigateToPage(0);

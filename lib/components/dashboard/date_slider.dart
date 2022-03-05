@@ -23,18 +23,18 @@ class _TTDashBoardDateSliderState extends State<TTDashBoardDateSlider> {
     setDefaultSelectedDate();
   }
 
-  void setDefaultSelectedDate() async {
-    try {
-      await timeTrackerStore
-          .dispatch(SetDaySelected(daySelected: getCurrentFormattedDay()));
+  @override
+  void dispose() {
+    super.dispose();
+    timeTrackerStore
+        .dispatch(SetDaySelected(daySelected: getCurrentFormattedDay()));
+  }
 
-      currentIndex = getCurrentDay() - 1;
+  void setDefaultSelectedDate() {
+    currentIndex = getCurrentDay() - 1;
 
-      WidgetsBinding.instance!.addPostFrameCallback(
-          (_) => itemController.jumpTo(index: currentIndex));
-    } catch (e) {
-      print(e);
-    }
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => itemController.jumpTo(index: currentIndex));
   }
 
   @override
@@ -51,6 +51,8 @@ class _TTDashBoardDateSliderState extends State<TTDashBoardDateSlider> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () async {
+              if (index == currentIndex) return;
+
               late String _daySelected;
 
               _daySelected = (index < 9) ? "0${index + 1}" : "${index + 1}";
