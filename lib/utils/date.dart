@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:time_tracker/store/tt.selectors.dart';
 
 String getCurrentFullDate() {
   return DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
@@ -23,7 +24,7 @@ String getCurrentTime() {
 
 String getDashBoardDate() {
   DateFormat _formatter = DateFormat('MMM');
-  String _day = getCurrentDate().split("/")[0];
+  String _day = getDaySelected();
 
   // create a formatter to get months 3 character
   String _month = _formatter.format(DateTime.now());
