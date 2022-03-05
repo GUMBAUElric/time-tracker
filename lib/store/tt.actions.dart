@@ -17,10 +17,16 @@ class AddTask {
   AddTask({required this.task});
 }
 
+class UpdateTask {
+  TaskModel taskUpdated;
+
+  UpdateTask({required this.taskUpdated});
+}
+
 class DeleteTask {
   TaskModel task;
 
-  DeleteTask({ required this.task });
+  DeleteTask({required this.task});
 }
 
 class SetDaySelected {

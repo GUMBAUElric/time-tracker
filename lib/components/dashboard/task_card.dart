@@ -65,12 +65,12 @@ class TTDashBoardTaskCard extends StatelessWidget {
         extentRatio: 0.55,
         children: [
           SlidableAction(
-            onPressed: (BuildContext context) {
+            onPressed: (BuildContext context) async {
               Navigator.push(
                   context,
                   PageTransition(
                       type: PageTransitionType.bottomToTop,
-                      child: const EditTask()));
+                      child: EditTask(taskToUpdate: task)));
             },
             foregroundColor: TTColors.secondary,
             icon: Icons.edit,
