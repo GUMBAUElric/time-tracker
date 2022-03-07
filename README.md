@@ -32,6 +32,8 @@ The project is based on the [following model](https://dribbble.com/shots/1744751
 
 <p align="center">
     <img src="https://cdn.dribbble.com/users/1998175/screenshots/17447511/media/e5c9c2407b87a7cae14ea6aff31c227b.jpg" alt="Logo" width=450 height=350>
+    <img src="https://cdn.dribbble.com/users/1998175/screenshots/17447511/media/41a2fb29affe65f280ac541621c43205.jpg?compress=1&resize=1200x900&vertical=top" alt="Logo" width=450 height=350>
+
 </p>
 
 ## Prerequisites
