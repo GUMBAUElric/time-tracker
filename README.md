@@ -44,7 +44,7 @@ Here are the prerequisites necessary for this project
 |---------------|
 | Flutter       | 
 
-    > Ask google how to install if you don't have them 😉
+> Ask google how to install if you don't have them 😉
 
 ## What's included
 
